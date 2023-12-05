@@ -4,6 +4,7 @@ public interface Hero {
     final double speed = 10;
     final double Mana = 10;
     final double HP = 100;
+
     public double attack(Warrior w);
     public double attack(Archer w);
     public void equip_Weapon_Sword();

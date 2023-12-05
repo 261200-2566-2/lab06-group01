@@ -16,7 +16,11 @@ public class Archer implements Hero{
     private Sword s1;
     private Bow b1;
     String name;
-    /** @returns */
+    /** Constructor for create object in archer class
+     *  @param name to set name of this object.
+     *  effects: Set any stat to this hero.
+     *  effects: Display text about base stat of this hero
+     */
     Archer(String name){
         this.name = name;
         this.HP = Hero.HP;
@@ -31,7 +35,12 @@ public class Archer implements Hero{
         this.Base_DEF = Hero.def;
         System.out.println("Create Warrior Name: " + this.name + " Level: " + this.level + " Maximum HP: "+this.Max_HP+ " Maximum Mana: "+this.Max_Mana+" Max Speed: "+this.Max_Speed+ " Base ATK: "+this.Base_ATK+" Base DEF: "+this.Base_DEF);
     }
-
+    /** Attack to warrior in field.
+     * effects: Display a text who is attacker and who is defender
+     * effect: Display a text how much damage this warrior can do at enemy.
+     * @param  w is warrior in the field who is attacked by this hero.
+     * @return Damage that is hero receives.
+     * */
     @Override
     public double attack(Warrior w) {
         if (atk - w.def > 0) {
@@ -46,7 +55,12 @@ public class Archer implements Hero{
             return 0;
         }
     }
-
+    /** Attack to archer in field.
+     * effects: Display a text who is attacker and who is defender
+     * effects: Display a text how much damage this warrior can do at enemy.
+     * @param  a is archer in the field who is attacked by this hero.
+     * @return Damage that is hero receives.
+     * */
     @Override
     public double attack(Archer a) {
         if(a.HP <= 0){
@@ -65,7 +79,10 @@ public class Archer implements Hero{
             return 0;
         }
     }
-
+    /** If this hero didn't equip bow,it will equip sword.
+     * effects: Increase any stat of hero with that sword.
+     * effects: Display the text to tell user why doesn't equip sword.
+     */
     @Override
     public void equip_Weapon_Sword() {
         if(!equipBow){
@@ -78,6 +95,10 @@ public class Archer implements Hero{
             System.out.println("You should unequip bow before equip another weapon by unequipBow() method");
         }
     }
+    /** If this hero didn't equip sword,it will equip bow.
+     * effects: Increase any stat of hero with that bow.
+     * effects: Display the text to tell user why doesn't equip bow.
+     */
     @Override
     public void equip_Weapon_Bow() {
         if(!equipSword){
@@ -90,20 +111,28 @@ public class Archer implements Hero{
             System.out.println("You should unequip sword before equip another weapon by unequipSword() method");
         }
     }
-
+    /** Use for unequip sword.
+     *  effects: Unequip sword and improve stat of hero
+     */
     @Override
     public void unequipSword() {
         equipSword = false;
         atk = Base_ATK + (15*level);
         speed = Max_Speed;
     }
-
+    /** Use for unequip sword.
+     *  effects: Unequip sword and improve stat of hero
+     */
     @Override
     public void unequipBow() {
         equipBow = false;
         atk = Base_ATK + (15*level);
         speed = Max_Speed;
     }
+    /** Unique skill to attack the warrior.
+     * @param w is warrior who is attacked by this hero with unique skill.
+     *  effects: Display text about this attack.
+     */
     public double Arrow_Inferno(Warrior w){
         if(w.HP <= 0){
             System.out.println("This round was ended pls restart again.");
@@ -129,7 +158,10 @@ public class Archer implements Hero{
         }
         return 0;
     }
-
+    /** Unique skill to attack the archer.
+     * @param a is archer who is attacked by this hero with unique skill.
+     *  effects: Display text about this attack.
+     */
     public double Arrow_Inferno(Archer a){
         if(a.HP <= 0){
             System.out.println("This round was ended pls restart again.");
@@ -155,6 +187,10 @@ public class Archer implements Hero{
             return 0;
         }
     }
+    /** Level up this hero.
+     * effects: Increase any stat of hero
+     * effects: Display text when level hero can unlock unique skill.
+     * */
     @Override
     public void Level_UP() {
         level = level+1;
@@ -171,26 +207,41 @@ public class Archer implements Hero{
         }
         getCurrentInfo();
     }
-
+    /** Display max stat information of hero on that level.
+     *  effects: Display text about max stat on that level.
+     */
     @Override
     public void getMaxInfo() {
         System.out.println("Name: "+this.name + " Level: " + this.level + " Maximum HP: "+this.Max_HP+ " Maximum Mana: "+this.Max_Mana+" Max Speed: "+this.Max_Speed+ " Base ATK: "+this.Base_ATK+" Base DEF: "+this.Base_DEF);
     }
-
+    /** Display current stat information of hero on that level.
+     *  effects: Display text about current stat on that level.
+     */
     @Override
     public void getCurrentInfo(){
         System.out.println("Name: "+this.name + " Level: " + this.level + " Current HP: "+this.HP+ " Current Mana: "+this.Mana+" Current Speed: "+this.speed+ " Current ATK: "+this.atk+" Current DEF: "+this.def);
     }
+    /** Use for check when game end.
+     * @param w is warrior who is attacked and check when warrior died.
+     *  effects: Tell user when warrior are die.
+     */
     private void gameEnd(Warrior w){
         if(w.HP <= 0){
             System.out.println("Warrior "+w.name + " died! Warrior "+this.name+" Win!");
         }
     }
+    /** Use for check when game end.
+     * @param a is warrior who is attacked and check when warrior died.
+     *  effects: Tell user when warrior are die.
+     */
     private void gameEnd(Archer a){
         if(a.HP <= 0){
             System.out.println("Archer "+a.name + " died! Warrior "+this.name+" Win!");
         }
     }
+    /** Use for enhance weapon which this hero equip.
+     *  effects: Call enhance function in weapon interface and increase any stat that relative with weapon.
+     */
     @Override
     public void enhance(){
         if(equipSword && !equipBow){
